@@ -1,3 +1,5 @@
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/6d01620a-bcac-4f1a-84ba-4f0c8c8beaba/big.png?1)](https://insight.sensiolabs.com/projects/6d01620a-bcac-4f1a-84ba-4f0c8c8beaba)
+
 # ImageOptimizer
 
 This is PHP library for Image Optimizer https://imageoptim.com/api/post
