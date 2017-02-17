@@ -136,7 +136,7 @@ class ImageOptimizer implements ImageOptimizerInterface
         ];
 
         return file_get_contents(
-            $query = sprintf(
+            sprintf(
                 '%s/%s/%s/%s',
                 static::URL,
                 $this->username,
