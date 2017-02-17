@@ -5,7 +5,8 @@
   "homepage": "https://github.com/",
   "type": "library",
   "require": {
-    "php": ">=7.1"
+    "php": ">=7.1",
+    "php-mock/php-mock-phpunit": "^1.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^5"
