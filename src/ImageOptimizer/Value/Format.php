@@ -2,11 +2,8 @@
 
 namespace Icewild\ImageOptimizer\Value;
 
-class Format
+class Format extends AbstractValue
 {
-    /** @var int */
-    protected $format;
-
     const JPG_FORMAT = 'jpeg';
     const PNG_FORMAT = 'png';
     const WEBM_FORMAT = 'webm';
@@ -18,23 +15,12 @@ class Format
     ];
 
     /**
-     * Format constructor.
-     * @param string $format
+     * @param string $value
      */
-    public function __construct(string $format)
+    public function validateValue(string $value): void
     {
-        if (!array_key_exists($format, static::AVAILABLE_FORMAT_MAP)) {
-            throw new \InvalidArgumentException(sprintf('Format [%s] not available', $format));
+        if (!array_key_exists($value, static::AVAILABLE_FORMAT_MAP)) {
+            throw new \InvalidArgumentException(sprintf('Format [%s] not available', $value));
         }
-
-        $this->format = $format;
-    }
-
-    /**
-     * @return int
-     */
-    public function getValue()
-    {
-        return $this->format;
     }
 }

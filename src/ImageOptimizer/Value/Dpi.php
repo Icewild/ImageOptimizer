@@ -2,31 +2,17 @@
 
 namespace Icewild\ImageOptimizer\Value;
 
-class Dpi
+class Dpi extends AbstractValue
 {
-    /** @var int */
-    protected $dpi;
-
     const AVAILABLE_DPI = [1,2,3];
 
     /**
-     * Dpi constructor.
-     * @param int $dpi
+     * @param string $value
      */
-    public function __construct(int $dpi)
+    public function validateValue(string $value): void
     {
-        if (!in_array($dpi, static::AVAILABLE_DPI)) {
-            throw new \InvalidArgumentException(sprintf('DPI [%s] not available', $dpi));
+        if (!in_array($value, static::AVAILABLE_DPI)) {
+            throw new \InvalidArgumentException(sprintf('DPI [%s] not available', $value));
         }
-
-        $this->dpi = $dpi;
-    }
-
-    /**
-     * @return int
-     */
-    public function getValue(): int
-    {
-        return $this->dpi;
     }
 }

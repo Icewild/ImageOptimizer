@@ -2,29 +2,15 @@
 
 namespace Icewild\ImageOptimizer\Value;
 
-class Color
+class Color extends AbstractValue
 {
-    /** @var string */
-    protected $color;
-
     /**
-     * Color constructor.
-     * @param string $color
+     * @param string $value
      */
-    public function __construct(string $color)
+    public function validateValue(string $value): void
     {
-        if (!preg_match('/^(?:[0-9a-fA-F]{3}){1,2}$/i', $color)) {
-            throw new \InvalidArgumentException(sprintf('String [%s] is not a hex color', $color));
+        if (!preg_match('/^(?:[0-9a-fA-F]{3}){1,2}$/i', $value)) {
+            throw new \InvalidArgumentException(sprintf('String [%s] is not a hex color', $value));
         }
-
-        $this->color = $color;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->color;
     }
 }

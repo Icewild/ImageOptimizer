@@ -42,6 +42,12 @@ class ImageOptimizerTest extends \PHPUnit_Framework_TestCase
 
     public function testImageOptimizer_2()
     {
+        $file_get_contents = $this->getFunctionMock('Icewild\\ImageOptimizer', 'file_get_contents');
+
+        $file_get_contents
+            ->expects($this->once())
+            ->willReturn('some very long string with Image DATA');
+
         $this->image_optimizer->setWidthAndHeight(100);
         $this->image_optimizer->setResizeStrategy(new ResizeStrategy('fit'));
         $this->image_optimizer->setSourceUrl('https://avatars3.githubusercontent.com/u/8243173');

@@ -2,10 +2,8 @@
 
 namespace Icewild\ImageOptimizer\Value;
 
-class Quality
+class Quality extends AbstractValue
 {
-    protected $quality;
-
     const LOW_QUALITY = 'low';
     const MEDIUM_QUALITY = 'medium';
     const HIGH_QUALITY = 'high';
@@ -19,23 +17,12 @@ class Quality
     ];
 
     /**
-     * Quality constructor.
-     * @param string $quality
+     * @param string $value
      */
-    public function __construct(string $quality)
+    public function validateValue(string $value): void
     {
-        if (!array_key_exists($quality, static::AVAILABLE_QUALITY)) {
-            throw new \InvalidArgumentException(sprintf('Quality [%s] is not available', $quality));
+        if (!array_key_exists($value, static::AVAILABLE_QUALITY)) {
+            throw new \InvalidArgumentException(sprintf('Quality [%s] is not available', $value));
         }
-
-        $this->quality = $quality;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->quality;
     }
 }

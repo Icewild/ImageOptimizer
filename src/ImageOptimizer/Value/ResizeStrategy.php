@@ -2,10 +2,8 @@
 
 namespace Icewild\ImageOptimizer\Value;
 
-class ResizeStrategy
+class ResizeStrategy extends AbstractValue
 {
-    protected $resize_strategy;
-
     const STRATEGY_FIT = 'fit';
     const STRATEGY_CROP = 'crop';
     const STRATEGY_SCALE_DOWN = 'scale-down';
@@ -19,23 +17,12 @@ class ResizeStrategy
     ];
 
     /**
-     * ResizeStrategy constructor.
-     * @param string $resize_strategy
+     * @param string $value
      */
-    public function __construct(string $resize_strategy)
+    public function validateValue(string $value): void
     {
-        if (!array_key_exists($resize_strategy, static::AVAILABLE_STRATEGIES)) {
-            throw new \InvalidArgumentException(sprintf('Strategy [%s] is not available', $resize_strategy));
+        if (!array_key_exists($value, static::AVAILABLE_STRATEGIES)) {
+            throw new \InvalidArgumentException(sprintf('Strategy [%s] is not available', $value));
         }
-
-        $this->resize_strategy = $resize_strategy;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->resize_strategy;
     }
 }
