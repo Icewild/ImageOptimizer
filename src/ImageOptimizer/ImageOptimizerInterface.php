@@ -10,12 +10,6 @@ use Icewild\ImageOptimizer\Value\ResizeStrategy;
 
 interface ImageOptimizerInterface
 {
-    /**
-     * ImageOptimizerInterface constructor.
-     * @param string $username
-     */
-    public function __construct(string $username);
-
     public function getImage();
 
     /**

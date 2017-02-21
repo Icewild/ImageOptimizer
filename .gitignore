@@ -2,3 +2,4 @@ composer.phar
 vendor/
 phpunit.xml
 coverage
+.DS_Store
