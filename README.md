@@ -3,7 +3,14 @@
 # ImageOptimizer
 
 This is PHP library for Image Optimizer https://imageoptim.com/api/post
+
  
+## Installation
+
+```
+composer require icewild/image-optimizer
+```
+
 ## Usage
 
 ```PHP
