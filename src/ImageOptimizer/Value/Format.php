@@ -20,7 +20,11 @@ class Format extends AbstractValue
     public function validateValue(string $value): void
     {
         if (!array_key_exists($value, static::AVAILABLE_FORMAT_MAP)) {
-            throw new \InvalidArgumentException(sprintf('Format [%s] not available', $value));
+            throw new \InvalidArgumentException(sprintf(
+                'Available formats are [%s]. Got [%s].',
+                implode(', ', static::AVAILABLE_FORMAT_MAP),
+                $value)
+            );
         }
     }
 }

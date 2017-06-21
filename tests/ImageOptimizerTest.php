@@ -8,6 +8,7 @@ use Icewild\ImageOptimizer\Value\Dpi;
 use Icewild\ImageOptimizer\Value\Format;
 use Icewild\ImageOptimizer\Value\Quality;
 use Icewild\ImageOptimizer\Value\ResizeStrategy;
+use Icewild\ImageOptimizer\Value\Timeout;
 use phpmock\phpunit\PHPMock;
 
 /**
@@ -33,11 +34,11 @@ class ImageOptimizerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->willReturn('some very long string with Image DATA');
 
-        $this->image_optimizer->setWidthAndHeight(100, 100);
-        $this->image_optimizer->setResizeStrategy(new ResizeStrategy('crop'));
-        $this->image_optimizer->setSourceUrl('https://avatars3.githubusercontent.com/u/8243173');
+        $image = $this->image_optimizer->createFromUrl('https://avatars3.githubusercontent.com/u/8243173');
 
-        $this->image_optimizer->getImage();
+        $image->setWidthAndHeight(100, 100);
+        $image->setResizeStrategy(new ResizeStrategy('crop'));
+        $image->getBytes();
     }
 
     public function testImageOptimizer_2()
@@ -48,16 +49,17 @@ class ImageOptimizerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->willReturn('some very long string with Image DATA');
 
-        $this->image_optimizer->setWidthAndHeight(100);
-        $this->image_optimizer->setResizeStrategy(new ResizeStrategy('fit'));
-        $this->image_optimizer->setSourceUrl('https://avatars3.githubusercontent.com/u/8243173');
-        $this->image_optimizer->setTimeout(5);
-        $this->image_optimizer->setQuality(new Quality(Quality::LOSSLESS_QUALITY));
-        $this->image_optimizer->setDpi(new Dpi(2));
-        $this->image_optimizer->setBgColor(new Color('fff'));
-        $this->image_optimizer->setFormat(new Format(Format::PNG_FORMAT));
+        $image = $this->image_optimizer->createFromUrl('https://avatars3.githubusercontent.com/u/8243173');
 
-        $this->image_optimizer->getImage();
+        $image->setWidthAndHeight(100);
+        $image->setResizeStrategy(new ResizeStrategy('fit'));
+        $image->setTimeout(new Timeout(5));
+        $image->setQuality(new Quality(Quality::LOSSLESS_QUALITY));
+        $image->setDpi(new Dpi(2));
+        $image->setBgColor(new Color('fff'));
+        $image->setFormat(new Format(Format::PNG_FORMAT));
+
+        $image->getBytes();
     }
 
     public function testValueColor()
@@ -86,7 +88,7 @@ class ImageOptimizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessageRegExp /^DPI \[(.+?)\] not available$/
+     * @expectedExceptionMessageRegExp /^Available DPI are \[(.+?)\]. Got \[(.+?)\].$/
      */
     public function testValueDpi_2()
     {
@@ -102,7 +104,7 @@ class ImageOptimizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessageRegExp /^Format \[(.+?)\] not available$/
+     * @expectedExceptionMessageRegExp /^Available formats are \[(.+?)\]. Got \[(.+?)\].$/
      */
     public function testValueFormat_2()
     {
@@ -118,7 +120,7 @@ class ImageOptimizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessageRegExp /^Quality \[(.+?)\] is not available$/
+     * @expectedExceptionMessageRegExp /^Available qualities are \[(.+?)\]. Got \[(.+?)\].$/
      */
     public function testValueQuality_2()
     {
@@ -139,5 +141,21 @@ class ImageOptimizerTest extends \PHPUnit_Framework_TestCase
     public function testValueResizeStrategy_2()
     {
         new ResizeStrategy('not_existance');
+    }
+
+    public function testValueTimeout()
+    {
+        $timeout = new Timeout(5);
+
+        $this->assertEquals(5, $timeout->getValue());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessageRegExp /^Timeout is not a positive number. Got \[(.+?)\].$/
+     */
+    public function testValueTimeout_2()
+    {
+        new Timeout('not_existance');
     }
 }

@@ -2,19 +2,16 @@
 
 namespace Icewild\ImageOptimizer\Value;
 
-class Dpi extends AbstractValue
+class Timeout extends AbstractValue
 {
-    const AVAILABLE_DPI = [1,2,3];
-
     /**
      * @param string $value
      */
     public function validateValue(string $value): void
     {
-        if (!in_array($value, static::AVAILABLE_DPI)) {
+        if (!is_numeric($value) && $value <= 0) {
             throw new \InvalidArgumentException(sprintf(
-                'Available DPI are [%s]. Got [%s].',
-                implode(', ', static::AVAILABLE_DPI),
+                'Timeout is not a positive number. Got [%s].',
                 $value
             ));
         }

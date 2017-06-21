@@ -22,7 +22,11 @@ class Quality extends AbstractValue
     public function validateValue(string $value): void
     {
         if (!array_key_exists($value, static::AVAILABLE_QUALITY)) {
-            throw new \InvalidArgumentException(sprintf('Quality [%s] is not available', $value));
+            throw new \InvalidArgumentException(sprintf(
+                'Available qualities are [%s]. Got [%s].',
+                implode(', ', static::AVAILABLE_QUALITY),
+                $value
+            ));
         }
     }
 }
